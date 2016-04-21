@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Android N - 5 things that will change, break and help your Android application</title>
+
+	<meta name="description" content="Presentation about the changes in the Android N Developer Preview" <meta name="author" content="Marvin Ramin">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.5, user-scalable=yes, minimal-ui">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/dracula.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+
+	<div class="reveal">
+		<div class="slides">
+			<!--
+				__      __       .__
+			 /  \    /  \ ____ |  |   ____  ____   _____   ____
+			 \   \/\/   // __ \|  | _/ ___\/  _ \ /     \_/ __ \
+			  \        /\  ___/|  |_\  \__(  <_> )  Y Y  \  ___/
+			   \__/\  /  \___  >____/\___  >____/|__|_|  /\___  >
+			        \/       \/          \/            \/     \/
+			  -->
+			<section>
+				<div>
+					<h2>Getting Started with Android N</h2>
+					</br>
+					<p><i>5 things that will change, break and help your app</i></p>
+				</div>
+
+				<div>
+					</br>
+					</br></br>
+					<p>Marvin Ramin</p>
+					</br>
+					<img class="plain" align="middle" hspace="800" style="height:110px;vertical-align:middle" data-src="./img/logo_car2go.png">
+				</div>
+			</section>
+
+			<!--
+				__________                __    _______  ____
+			\______   \_____ ________/  |_  \   _  \/_   |
+			 |     ___/\__  \\_  __ \   __\ /  /_\  \|   |
+			 |    |     / __ \|  | \/|  |   \  \_/   \   |
+			 |____|    (____  /__|   |__|    \_____  /___|
+			                \/                     \/
+				-->
+
+			<section>
+				<h2>Chapter 0:</h2>
+				<h4>The basics</h4>
+			</section>
+
+			<section data-background="./img/n-bg-generic.jpg">
+				<aside class="notes">
+					UI changes
+					</br>
+					Development stack changes
+					</br>
+					Behavior changes
+				</aside>
+			</section>
+
+			<section>
+				<img class="plain" align="middle" style="height:600px" data-src="./img/n-preview-updates.png">
+				<aside class="notes">
+					Why are we talking about this? Dev Preview 1 was released a month ago.
+				</aside>
+			</section>
+
+			<section>
+				<img class="plain" align="middle" style="height:600px" data-src="./img/n-preview-updates_publishing.png">
+				<aside class="notes">
+					Preview 4 will allow you to publish Apps to the Play Store that target N
+				</aside>
+			</section>
+
+			<section>
+				<h2>Setup time!</h2>
+				</br>
+				<img class="plain fragment" align="middle" style="height:px150" data-src="./img/emoji-wrench.png">
+			</section>
+
+			<section>
+				<h2>The tools you need will need:</h2>
+				<ul>
+					<li class="fragment">Android Studio 2.1</li>
+					<li class="fragment">Android N Preview SDK</li>
+					<li class="fragment">API Documentation</li>
+					<li class="fragment">JDK 8</li>
+					<li class="fragment">build.gradle</li>
+				</ul>
+				<aside class="notes">
+
+				</aside>
+			</section>
+
+			<section>
+				<pre><code class="groovy" data-noescape data-trim>
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0-&lt;some alpha/beta version here&gt;'
+    }
+}
+
+android {
+    compileSdkVersion 'android-N'
+    buildToolsVersion "24.0.0 rc1"
+
+    defaultConfig {
+        minSdkVersion 'N'
+        targetSdkVersion 'N'
+    }
+}
+					</code></pre>
+
+				<aside class="notes">
+					Android Gradle Plugin update Compile Sdk Build Tools API version is just N for now
+				</aside>
+			</section>
+
+			<section>
+				<h2>Prepare your device</h2>
+				<ul>
+					<li class="fragment">Emulator</li>
+					<li class="fragment">Nexus Factory Images</li>
+					<li class="fragment"><a href="http://www.google.com/android/beta">google.com/android/beta</a></li>
+				</ul>
+				<aside class="notes">
+
+				</aside>
+			</section>
+
+			<section>
+				<img class="plain" align="middle" style="height:300px" data-src="./img/n-beta-enrollment.png">
+				</br>
+				<p class="fragment">Works with all Nexus deivces > Nexus 6</p>
+
+				<p class="fragment"><font size="2">RIP Nexus 5</font></p>
+
+				<aside class="notes">
+					It's really quick! Click the button and get the notification that a new OS version is available.
+				</aside>
+			</section>
+
+			<!--
+				__________                __    _______   ________
+				\______   \_____ ________/  |_  \   _  \  \_____  \
+				 |     ___/\__  \\_  __ \   __\ /  /_\  \  /  ____/
+				 |    |     / __ \|  | \/|  |   \  \_/   \/       \
+				 |____|    (____  /__|   |__|    \_____  /\_______ \
+				                \/                     \/         \/
+				-->
+			<section>
+				<h2>Chapter 1:</h2>
+				<h4>The UI changes</h4>
+			</section>
+
+			<section>
+				<h2>Notifications</h2>
+				<img class="plain fragment" align="middle" style="height:1100px" data-src="./img/n-notification-shade.png">
+				<aside class="notes">
+					Notifications in N, in fact the whole status bar shade was updated.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Quick Reply Notifications</h2>
+				<ul>
+					<li class="fragment">RemoteInput API</li>
+					<li class="fragment">Same as Android Wear</li>
+				</ul>
+				<aside class="notes">
+					If you have a wear app with reply functionality - done!
+				</aside>
+			</section>
+
+
+			<section>
+				<h2>Quick Reply Notifications</h2>
+				<pre><code class="java" data-noescape data-trim>
+RemoteInput remoteInput = new RemoteInput.Builder(RESULT_KEY_TEXT_REPLY)
+        .setLabel("Reply")
+        .build();
+
+PendingIntent pendingIntent =
+	PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+
+NotificationCompat.Action action =
+        new NotificationCompat.Action.Builder(R.mipmap.ic_launcher, "Reply", pendingIntent)
+                .addRemoteInput(remoteInput)
+                .build();
+
+NotificationCompat.Builder builder = baseNotification(context, "Quick reply", "You can reply to this...")
+        .addAction(action);
+				</code></pre>
+
+				<aside class="notes">
+				</aside>
+			</section>
+
+			<section>
+				<h2>Quick Reply Notifications</h2>
+				<pre><code class="java" data-noescape data-trim>
+RemoteInput remoteInput = <mark>new RemoteInput.Builder(RESULT_KEY_TEXT_REPLY)</mark>
+        .setLabel("Reply")
+        .build();
+
+PendingIntent pendingIntent =
+	PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+
+NotificationCompat.Action action =
+        new NotificationCompat.Action.Builder(R.mipmap.ic_launcher, "Reply", pendingIntent)
+                .addRemoteInput(remoteInput)
+                .build();
+
+NotificationCompat.Builder builder = baseNotification(context, "Quick reply", "Title")
+        .addAction(action);
+				</code></pre>
+
+				<aside class="notes">
+				</aside>
+			</section>
+
+			<section>
+				<h2>Quick Reply Notifications</h2>
+				<pre><code class="java" data-noescape data-trim>
+RemoteInput remoteInput = new RemoteInput.Builder(RESULT_KEY_TEXT_REPLY)
+        .setLabel("Reply")
+        .build();
+
+PendingIntent pendingIntent =
+	<mark>PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);</mark>
+
+NotificationCompat.Action action =
+        new NotificationCompat.Action.Builder(R.mipmap.ic_launcher, "Reply", pendingIntent)
+                .addRemoteInput(remoteInput)
+                .build();
+
+NotificationCompat.Builder builder = baseNotification(context, "Quick reply", "Title")
+        .addAction(action);
+				</code></pre>
+
+				<aside class="notes">
+				</aside>
+			</section>
+
+			<section>
+				<h2>Quick Reply Notifications</h2>
+				<pre><code class="java" data-noescape data-trim>
+RemoteInput remoteInput = new RemoteInput.Builder(RESULT_KEY_TEXT_REPLY)
+	.setLabel("Reply")
+	.build();
+
+PendingIntent pendingIntent =
+	PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+
+NotificationCompat.Action action =
+        new NotificationCompat.Action.Builder(R.mipmap.ic_launcher, "Reply", pendingIntent)
+                <mark>.addRemoteInput(remoteInput)</mark>
+                .build();
+
+NotificationCompat.Builder builder = baseNotification(context, "Quick reply", "Title")
+	.addAction(action);
+				</code></pre>
+
+				<aside class="notes">
+				</aside>
+			</section>
+
+			<section>
+				<h2>Quick Reply Notifications</h2>
+				<pre><code class="java" data-noescape data-trim>
+RemoteInput remoteInput = new RemoteInput.Builder(RESULT_KEY_TEXT_REPLY)
+        .setLabel("Reply")
+        .build();
+
+PendingIntent pendingIntent =
+	PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+
+NotificationCompat.Action action =
+        new NotificationCompat.Action.Builder(R.mipmap.ic_launcher, "Reply", pendingIntent)
+                .addRemoteInput(remoteInput)
+                .build();
+
+NotificationCompat.Builder builder = baseNotification(context, "Quick reply", "Title")
+        <mark>.addAction(action);</mark>
+				</code></pre>
+
+				<aside class="notes">
+					And then of course show the notification!
+				</aside>
+			</section>
+
+			<section>
+				<h2>Handling the Remote Input</h2>
+				<pre><code class="java" data-noescape data-trim>
+Bundle bundle = RemoteInput.getResultsFromIntent(getIntent());
+if (bundle == null) {
+	return;
+}
+
+String replyText = bundle.getString(RESULT_KEY_TEXT_REPLY);
+// Do something with the reply text
+
+// You have to remove the notification once you're finished processing it
+NotificationManager.removeReplyNotification(this);
+				</code></pre>
+
+				<aside class="notes">
+					Read the intent
+				</aside>
+			</section>
+
+			<section>
+				<h2>Handling the Remote Input</h2>
+				<pre><code class="java" data-noescape data-trim>
+Bundle bundle = <mark>RemoteInput.getResultsFromIntent(getIntent());</mark>
+if (bundle == null) {
+	return;
+}
+
+String replyText = bundle.getString(RESULT_KEY_TEXT_REPLY);
+// Do something with the reply text
+
+// You have to remove the notification once you're finished processing it
+NotificationManager.removeReplyNotification(this);
+				</code></pre>
+
+				<aside class="notes">
+					And then of course show the notification!
+				</aside>
+			</section>
+
+			<section>
+				<h2>Handling the Remote Input</h2>
+				<pre><code class="java" data-noescape data-trim>
+Bundle bundle = RemoteInput.getResultsFromIntent(getIntent());
+if (bundle == null) {
+	return;
+}
+
+String replyText = <mark>bundle.getString(RESULT_KEY_TEXT_REPLY);</mark>
+// Do something with the reply text
+
+// You have to remove the notification once you're finished processing it
+NotificationManager.removeReplyNotification(this);
+				</code></pre>
+
+				<aside class="notes">
+					Read the intent
+				</aside>
+			</section>
+
+			<section>
+				<h2>Grouping Notifications</h2>
+				<p class="fragment">.setGroup(ID)</p>
+				<p class="fragment">Create summary notification</p>
+				<p class="fragment">.setGroupSummary(true)</p>
+				<aside class="notes">
+					Also the same API as on Wear
+				</aside>
+			</section>
+
+			<section>
+				<h2>Quick Settings</h2>
+				<img class="plain fragment" align="middle" style="height:1100px" data-src="./img/n-quicksettings.png">
+				<aside class="notes">
+					Quick Settings tiles are reserved for controls or actions that are either urgently required or frequently used, and should not be used as shortcuts to launching an app.
+				</aside>
+			</section>
+
+			<section>
+				<h2>TileService</h2>
+				<p class="fragment">onTileAdded()</p>
+				<p class="fragment">onTileRemoved()</p>
+				<p class="fragment">onStartListening()</p>
+				<p class="fragment">onStopListening()</p>
+				<p class="fragment">onClick()</p>
+				<aside class="notes">
+					Add/Remove when user added it
+
+					Start/Stop when it's visible to update
+
+					Click on click
+				</aside>
+			</section>
+
+			<section>
+				<h2>TileService</h2>
+				<p>AndroidManifest.xml</p>
+				<pre><code class="xml" data-noescape data-trim>
+&lt;service
+    android:name=&quot;.QuickSettingsTileService&quot;
+    android:label=&quot;N Playground&quot;
+    android:icon=&quot;@drawable/wave&quot;
+    android:permission=&quot;android.permission.BIND_QUICK_SETTINGS_TILE&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.service.quicksettings.action.QS_TILE&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+				</code></pre>
+
+				<aside class="notes">
+
+				</aside>
+			</section>
+
+			<section>
+				<h2>TileService</h2>
+				<p>AndroidManifest.xml</p>
+				<pre><code class="xml" data-noescape data-trim>
+&lt;service
+    android:name=&quot;.QuickSettingsTileService&quot;
+    android:label=&quot;N Playground&quot;
+    android:icon=&quot;@drawable/wave&quot;
+    <mark>android:permission=&quot;android.permission.BIND_QUICK_SETTINGS_TILE&quot;&gt;</mark>
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.service.quicksettings.action.QS_TILE&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+				</code></pre>
+
+				<aside class="notes">
+
+				</aside>
+			</section>
+
+			<section>
+				<h2>TileService</h2>
+				<p>AndroidManifest.xml</p>
+				<pre><code class="xml" data-noescape data-trim>
+&lt;service
+    android:name=&quot;.QuickSettingsTileService&quot;
+    android:label=&quot;N Playground&quot;
+    android:icon=&quot;@drawable/wave&quot;
+    android:permission=&quot;android.permission.BIND_QUICK_SETTINGS_TILE&quot;&gt;
+    &lt;intent-filter&gt;
+        <mark>&lt;action android:name=&quot;android.service.quicksettings.action.QS_TILE&quot; /&gt;</mark>
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+				</code></pre>
+
+				<aside class="notes">
+
+				</aside>
+			</section>
+
+			<section>
+				<h2>Shortcuts</h2>
+				<p class="fragment">Quick actions on Launcher icons</p>
+				<p class="fragment">Can be added/removed dynamically</p>
+				<p class="fragment">Accessed with "a gesture"</p>
+				<p class="fragment">Possibly Force Touch?</p>
+				<aside class="notes">
+					Sounds like 3D Touch functionality
+				</aside>
+			</section>
+
+			<section>
+				<h2>Shortcuts</h2>
+				<img class="plain" align="middle" style="height:1100px" data-src="./img/n-shortcuts.png">
+				<aside class="notes">
+					Possible 3D Touch-like functionality
+				</aside>
+			</section>
+
+			<!--
+				__________                __    _______      _____
+				\______   \_____ ________/  |_  \   _  \    /  |  |
+				 |     ___/\__  \\_  __ \   __\ /  /_\  \  /   |  |_
+				 |    |     / __ \|  | \/|  |   \  \_/   \/    ^   /
+				 |____|    (____  /__|   |__|    \_____  /\____   |
+												\/                     \/      |__|
+				-->
+
+				<section>
+					<h2>Chapter 2:</h2>
+					<h4>The multiple windows</h4>
+				</section>
+
+				<section>
+					<h2>Multi Window</h2>
+					<p class="fragment">Split-Screen mode</p>
+					<p class="fragment">Picture in Picture</p>
+					<p class="fragment">Freeform mode</p>
+					<aside class="notes">
+						Split screen demo on emulator
+					</aside>
+				</section>
+
+				<section>
+					<h2>Picture in Picture</h2>
+					<img class="plain" align="middle" hspace="800" style="height:1150px;vertical-align:middle" data-src="./img/n-preview-split.png">
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Picture in Picture</h2>
+					<img class="plain" align="middle" hspace="800" style="height:800px;vertical-align:middle" data-src="./img/n-pip.png">
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Freeform</h2>
+					<img class="plain" align="middle" hspace="800" style="height:800px;vertical-align:middle" data-src="./img/n-freeform.png">
+					<aside class="notes">
+						You can drag and drop between "windows"!
+
+						Going towards desktop OS
+					</aside>
+				</section>
+
+			<section>
+				<h2>Multi Window</h2>
+				<p class="fragment">Be careful with orientation</p>
+				<p class="fragment">Be careful with the lifecycle</p>
+				<p class="fragment">Activity can still be visible in onPause()</p>
+				<p class="fragment">Fixed orientation disables multi-window</p>
+				<aside class="notes">
+					Device might be in portrait orientation, but activity is in landscape
+				</aside>
+			</section>
+
+			<section>
+				<h2>Multi Window</h2>
+				<pre class="fragment"><code class="xml" data-noescape data-trim>
+			android:resizeableActivity=["true" | "false"]
+					</code></pre>
+
+					<pre class="fragment"><code class="xml" data-noescape data-trim>
+			android:supportsPictureInPicture=["true" | "false"]
+						</code></pre>
+
+						<pre class="fragment"><code class="xml" data-noescape data-trim>
+&lt;activity android:name=&quot;.MyActivity&quot;&gt;
+	&lt;layout
+			android:defaultHeight=&quot;500dp&quot;
+			android:defaultWidth=&quot;600dp&quot;
+			android:gravity=&quot;top|end&quot;
+			android:minimalHeight=&quot;450dp&quot;
+			android:minimalWidth=&quot;300dp&quot; /&gt;
+&lt;/activity&gt;
+							</code></pre>
+				<aside class="notes">
+					resizable Activity defaults to true
+
+					if you use a fixed orientation for your activity, it cannot be put into multi window mode
+				</aside>
+			</section>
+
+			<section>
+				<h2>Multi Window</h2>
+				<p class="fragment">Intent.FLAG_ACTIVITY_LAUNCH_TO_ADJACENT</p>
+				<p class="fragment">Drag and Drop</p>
+				<p class="fragment">Helper methods and callbacks for mode changes</p>
+				<aside class="notes">
+				</aside>
+			</section>
+
+			<!--
+				__________                __    _______  ________
+				\______   \_____ ________/  |_  \   _  \ \_____  \
+				 |     ___/\__  \\_  __ \   __\ /  /_\  \  _(__  <
+				 |    |     / __ \|  | \/|  |   \  \_/   \/       \
+				 |____|    (____  /__|   |__|    \_____  /______  /
+				                \/                     \/       \/
+			  -->
+
+				<section>
+					<h2>Chapter 3:</h2>
+					<h4>The developer toolchain</h4>
+				</section>
+
+			<section>
+				<h2>Java 8</h2>
+				<img class="plain fragment" align="middle" style="height:500px" data-src="./img/drop-the-mic.gif">
+			</section>
+
+			<section>
+				<h2>Java 8 (kind of)</h2>
+				<img class="plain fragment" align="middle" style="height:500px" data-src="./img/emotions.gif">
+			</section>
+
+			<section>
+				<h2>Java 8 Language Features with N</h2>
+				<p class="fragment">Lambdas</p>
+				<p class="fragment">Default interface methods</p>
+				<p class="fragment">Reflection APIs</p>
+				<p class="fragment">java.util.function</p>
+				<p class="fragment">java.util.stream</p>
+			</section>
+
+			<section>
+				<h2>Java 8 Language Features below N</h2>
+				<p>Lambdas</p>
+				<p><strike>Default interface methods</strike></p>
+				<p><strike>Reflection APIs</strike></p>
+				<p><strike>java.util.function</strike></p>
+				<p><strike>java.util.stream</strike></p>
+			</section>
+
+			<section>
+				<img class="plain" align="middle" style="height:350px" data-src="./img/emoji-tada.png">
+			</section>
+
+			<section>
+				<h2>Jack &amp; Jill</h2>
+				<pre class="fragment"><code class="groovy" data-noescape data-trim>
+android {
+  ...
+  defaultConfig {
+    ...
+    jackOptions {
+      enabled true
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+					</code></pre>
+
+				<aside class="notes">
+					To use Java8 features you need to use Jack and Jill, a new compiler toolchain
+
+					It operates differently than javac, and outputs a .jack format
+
+
+				</aside>
+			</section>
+
+			<section>
+				<h2>Jack &amp; Jill</h2>
+				<pre><code class="groovy" data-noescape data-trim>
+android {
+  ...
+  defaultConfig {
+    ...
+    <mark>jackOptions {
+      enabled true
+    }</mark>
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+					</code></pre>
+
+				<aside class="notes">
+					Right now you need to enable jack, probably won't be the case in the future
+				</aside>
+			</section>
+
+			<section>
+				<h2>Jack &amp; Jill</h2>
+				<pre><code class="groovy" data-noescape data-trim>
+android {
+  ...
+  defaultConfig {
+    ...
+    jackOptions {
+      enabled true
+    }
+  }
+  compileOptions {
+    <mark>sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8</mark>
+  }
+}
+					</code></pre>
+
+				<aside class="notes">
+				</aside>
+			</section>
+
+			<section>
+				<h2>Jack &amp; Jill</h2>
+				<p class="fragment">Slightly slower than javac (currently)</p>
+				<p class="fragment">Breaks Annotation Processing (currently)</p>
+				<p class="fragment">No Instant Run (currently)</p>
+				<p class="fragment">Breaks Kotlin (currently)</p>
+				<p class="fragment"><a href="https://source.android.com/source/jack.html">source.android.com</a></p>
+
+				<aside class="notes">
+				</aside>
+			</section>
+
+
+			<!--
+				__________                __    _______   .________
+				\______   \_____ ________/  |_  \   _  \  |   ____/
+				 |     ___/\__  \\_  __ \   __\ /  /_\  \ |____  \
+				 |    |     / __ \|  | \/|  |   \  \_/   \/       \
+				 |____|    (____  /__|   |__|    \_____  /______  /
+				                \/                     \/       \/
+			 	-->
+
+				<section>
+					<h2>Chapter 4:</h2>
+					<h4>The small changes</h4>
+				</section>
+
+				<section>
+					<h2>X509TrustManager</h2>
+					<h2 class="fragment">Network Security Configuration</h2>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Network Security Configuration</h2>
+					<pre class="fragment"><code class="xml" data-noescape data-trim>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;network-security-config&gt;
+  &lt;domain-config&gt;
+      &lt;domain includeSubdomains=&quot;true&quot;&gt;example.com&lt;/domain&gt;
+      &lt;trust-anchors&gt;
+          &lt;certificates src=&quot;@raw/my_ca&quot;/&gt;
+      &lt;/trust-anchors&gt;
+  &lt;/domain-config&gt;
+&lt;/network-security-config&gt;
+						</code></pre>
+					<aside class="notes">
+						Defined with param in the AndroidManifest.xml meta-data
+
+						Also possible to just have this for debug builds if your test servers have custom certs
+					</aside>
+				</section>
+
+				<section>
+					<h2>Data Saver</h2>
+					<p class="fragment">ConnectivityManager.isActiveNetworkMetered()</p>
+					<p class="fragment">ConnectivityManager.getRestrictBackgroundStatus()</p>
+					<aside class="notes">
+						Tells you if user has enabled data saver or not
+
+						App should make an effort to reduce data consumption
+					</aside>
+				</section>
+
+				<section>
+					<h2>Changed behavior</h2>
+					<p class="fragment">file://</p>
+					<p class="fragment">Doze</p>
+					<p class="fragment">Multi-language support</p>
+					<p class="fragment">android.test deprecation</p>
+					<p class="fragment">android.permission.GET_ACCOUNTS deprecated</p>
+					<aside class="notes">
+						Stop using file:// URIs. --> FileUriExposedException
+
+						Migrate to content: URIs with FileProvider
+
+						Doze can now kick in at any time, might cause you trouble
+
+						Secondary language might be shown, not your default. Make sure your translations are complete.
+
+						All old AndroidTestCases are deprecated --> Testing support lib
+					</aside>
+				</section>
+
+				<section>
+					<h2>Chapter 5:</h2>
+					<h4>The mysteries</h4>
+				</section>
+
+				<section>
+					<p>AutomaticZenRule</p>
+					<p class="fragment">android.os.Health</p>
+					<aside class="notes">
+						Zen?
+
+						Lots more statistics about apps, it seems like awake time, cpu time, ect.
+					</aside>
+				</section>
+
+			<section>
+				<h2>Honorable mentions</h2>
+				<ul>
+					<p class="fragment">Vulkan</p>
+					<p class="fragment">NDK API</p>
+				</ul>
+				<aside class="notes">
+					Vulkan Graphics API
+
+					NDK restrictions, only use the public APIs, please!
+				</aside>
+			</section>
+
+			<section>
+				<h2>Reading material</h2>
+				<ul>
+					<li class="fragment"><a href="https://developer.android.com/preview/overview.html">developer.android.com</a></li>
+					<li class="fragment"><a href="https://commonsware.com/blog/2016/03/09/random-musings-n-developer-preview.html">The CommonsBlog - Random Musings on the N Developer Preview</a></li>
+					<li class="fragment"><a href="https://github.com/Mauin/n-playground">Android N Playground</a></li>
+				</ul>
+				<aside class="notes">
+				</aside>
+			</section>
+
+			<!--
+				___________.__                                .___
+				\__    ___/|  |__   ____     ____   ____    __| _/
+				  |    |   |  |  \_/ __ \  _/ __ \ /    \  / __ |
+				  |    |   |   Y  \  ___/  \  ___/|   |  \/ /_/ |
+				  |____|   |___|  /\___  >  \___  >___|  /\____ |
+				                \/     \/       \/     \/      \/
+			 	-->
+
+			<section>
+				<h1>Thank you!</h1>
+
+				<img class="fragment" data-fragment-index="2" align="right" height="500" data-src="./img/qr_code.png">
+				</br>
+				<div class="fragment" data-fragment-index="1">
+					<div align="left">
+						<img class="plain" align="middle" hspace="10" style="width:150;height:150px;vertical-align:middle" data-src="./img/logo_github.png">
+						<span style="">	&nbsp;	&nbsp;<a href="http://twitter.com/mauin">@Mauin</a></span>
+					</div>
+					<div align="left">
+						<img class="plain" align="middle" hspace="20" style="width:125px;height:125px;vertical-align:middle" data-src="./img/icon_github.png">
+						<span style="">	&nbsp;	&nbsp;	&nbsp;<a href="http://github.com/mauin">github.com/mauin</a></span>
+					</div>
+				</div>
+			</section>
+
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: false,
+			progress: true,
+			history: true,
+			center: true,
+			slideNumber: true,
+			slideNumber: 'c / t',
+
+			transition: 'none',
+
+			width: 1920,
+			height: 1080,
+			// Factor of the display size that should remain empty around the content
+			margin: 0.1,
+
+			// Bounds for smallest/largest possible scale to apply to content
+			minScale: 0.2,
+			maxScale: 2.0,
+
+			// Optional reveal.js plugins
+			dependencies: [{
+				src: 'lib/js/classList.js',
+				condition: function() {
+					return !document.body.classList;
+				}
+			}, {
+				src: 'plugin/markdown/marked.js',
+				condition: function() {
+					return !!document.querySelector('[data-markdown]');
+				}
+			}, {
+				src: 'plugin/markdown/markdown.js',
+				condition: function() {
+					return !!document.querySelector('[data-markdown]');
+				}
+			}, {
+				src: 'plugin/highlight/highlight.js',
+				async: true,
+				callback: function() {
+					[].forEach.call(document.querySelectorAll('.highlight, pre code'), function(v, i) {
+						hljs.highlightBlock(v);
+					});
+				}
+			}, {
+				src: 'plugin/zoom-js/zoom.js',
+				async: true
+			}, {
+				src: 'plugin/notes/notes.js',
+				async: true
+			}, {
+				src: 'plugin/external/external.js',
+				condition: function() {
+					return !!document.querySelector('[data-external]');
+				}
+			}]
+		});
+	</script>
+
+</body>
+
+</html>
